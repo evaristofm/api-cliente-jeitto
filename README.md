@@ -26,7 +26,7 @@ $ docker compose up -d --build
 próximo passo: execute as migrações do projeto usando docker compose + alembic
 
 ```
-$ docker compose exec api prev alembic upgrade head
+$ docker compose exec api app alembic upgrade head
 
 ```
 
@@ -58,5 +58,35 @@ http://localhost:8000/docs
 
 ![swagger](https://github.com/evaristofm/api-cliente-jeitto/assets/46290279/4595ac9d-2e7f-4552-a0c6-b74f64256244)
 
+Comandos CLI que podem ser úteis
 
+o comando abaixo lsita todos os comandos cadastrados no projeto:
+
+```
+docker compose exec api app --help
+
+```
+
+![lista_help_comandos](https://github.com/evaristofm/api-cliente-jeitto/assets/46290279/2806b3ad-0538-4aaa-a2ef-60540ec9a354)
+
+
+o seguinte comando lista todos os clientes cadastrados no banco de dados:
+
+```
+docker compose exec api app cliente-list
+
+```
+![lista_clientes_cli](https://github.com/evaristofm/api-cliente-jeitto/assets/46290279/74651d3f-baf3-4ce2-bfd2-7d7742df524c)
+
+
+o próximo comando podemos criar um cliente via linha de comando.
+Segue um exemplo:
+
+```
+docker compose exec api app cliente-create "John Doe" jhondoe@test.com 81977777777
+
+```
+![criar_cliente_cli](https://github.com/evaristofm/api-cliente-jeitto/assets/46290279/43f7e801-9014-451b-bc19-dd044744ec69)
+
+![lista_cliente_2_cli](https://github.com/evaristofm/api-cliente-jeitto/assets/46290279/a8b86732-e1a2-4884-8950-e90742fb8151)
 
