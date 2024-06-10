@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    environment:
+      APP_DB__uri: "postgresql://postgres:postgres@db:5432/${APP_DB:-app}"
+      APP_DB__connect_args: "{}"
+      SQLALCHEMY_SILENCE_UBER_WARNING: 1
+    volumes:
+      - .:/home/app/api
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+  db:
+    build: postgres
+    image: app_postgres-13-alpine-multi-user
+    volumes:
+      - app_pg_data:/var/lib/postgresql/data
+    ports:
+      # ATENÇÃO: Mude para 5432: se precisar acessar via host
+      - "5435:5432"
+    environment:
+      - POSTGRES_DBS=app, app_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  app_pg_data:
