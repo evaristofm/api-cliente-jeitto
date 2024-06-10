@@ -18,8 +18,7 @@ services:
   db:
     build: postgres
     image: app_postgres-13-alpine-multi-user
-    volumes:
-      - app_pg_data:/var/lib/postgresql/data
+
     ports:
       # ATENÇÃO: Mude para 5432: se precisar acessar via host
       - "5435:5432"
@@ -28,5 +27,3 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-volumes:
-  app_pg_data:
