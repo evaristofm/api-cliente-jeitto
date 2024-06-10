@@ -1,5 +1,7 @@
 """Database connection"""
-from sqlmodel import create_engine
+from fastapi import Depends
+from sqlmodel import create_engine, Session
+
 from .config import settings
 
 engine = create_engine(
@@ -8,3 +10,10 @@ engine = create_engine(
     connect_args=settings.db.connect_args,  # pyright: ignore
 )
 
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+ActiveSession = Depends(get_session)
